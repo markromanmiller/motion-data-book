@@ -1,0 +1,9 @@
+# Converting MYREC to BIDS
+
+I've written some RMarkdown on this, this is helpful
+
+## Extracting Myrec
+
+(see the Rmd file I sent over a long while ago)
+
+## Forming to BIDS

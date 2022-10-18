@@ -1,0 +1,14 @@
+# Examples of Social Analysis
+
+## libraries
+
+synsyn (https://github.com/markromanmiller/synsyn)
+dddr
+
+## total motion over time
+
+## average distance between people
+
+## Heatmap
+
+## Gaze distribution
