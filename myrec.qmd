@@ -54,3 +54,7 @@ The only other variable we used was `LipSyncAverageflox`, which indicated the am
 **Samples** are demarcated with with infixed `|`. Any values that are equal to the previous value are not included, so several variables often are written `|0|||||...`.
 
 **3D Vectors** are demarcated in a special way relative to other data types. The three elements of the vector are separated with infix `<` symbols, and changes propagate along dimension individually. For example, the value `|<2.345<|` means the y-value changed to 2.345, but the x- and z- values remained the same. Position and rotation vectors were written the same way; they only difference in the data itself is the variable name discussed above. Positions are interpreted as `X<Y<Z`, where axis conventions are used according to Unity (Y up, Z out, left-handed). Rotations are interpreted as `pitch<yaw<roll`, where angle conventions are also used according to Unity.
+
+## Conventions
+
+(more could be written here --- a good threshold for smooth motion is 3.05 m/s)
