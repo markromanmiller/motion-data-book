@@ -6,7 +6,82 @@ synsyn (https://github.com/markromanmiller/synsyn) dddr
 
 ## total motion over time
 
-## average distance between people
+## distance between people
+
+Distance between people can be tricky because usually distance can be measured over time. The question becomes how collapse a time series of values into one value.
+
+A very simple option is to simply take the average. In some highly controlled situations, this is acceptable. The assumption that one makes when averaging is that all the distances and times are roughly equally important. This makes sense when two people are facing each other and interacting for the vast majority of time, and there are no outliers in terms of distance.
+
+In some work (for example, the study "Proxemics and Gaze in Virtual Environments" that I led at IEEE VR 2023), I instead went with a not-quite-minimum. This, to me, better captured the fact that interpersonal distance is more about how close you are without feeling uncomfortable. The reason this was used instead of minimum was because occastionally people might teleport too close to each other and need to adjust their distance.
+
+Code for both is below. 
+
+```r
+# Take the file, read it, and get virtual position of root, and physical position of head, and find visible position.
+preprocess <- function(file_path, session_id, participant_id, ...) {
+  # exactly one file per person
+  read_tsv(file_path, col_types = list(Timestamp = col_time("%H:%M:%OS")), progress = F) %>%
+    bundle(
+      Root = "Root_Pos{v}",
+      RootRot = "Root_Rot{ed}",
+      RawHead = "Head_Pos{v}"
+    ) %>%
+    select(Timestamp, Root, RootRot, RawHead) %>%
+    mutate(session_id = session_id) %>%
+    mutate(
+      # convert to visible motion
+      VisibleRawHead = Root + rotate(RawHead, RootRot)
+    )
+}
+
+# Take average distance between participants
+average_distance_between <- function(px_data, py_data) {
+  joined <- inner_join(px_data, py_data, by = c("Timestamp"))
+
+  if (nrow(joined) == 0) {
+    return (NULL)
+  }
+
+  joined %>%
+    mutate(
+      dist = distance_between(VisibleRawHead.y - VisibleRawHead.x) %>%
+    ) %>%
+    summarize(
+      dist = mean(dist)
+    )
+}
+
+# Take the minimum distance between participants, ignoring 5 seconds worth of motion data
+average_distance_between <- function(px_data, py_data) {
+  joined <- inner_join(px_data, py_data, by = c("Timestamp"))
+
+  if (nrow(joined) == 0) {
+    return (NULL)
+  }
+
+  joined %>%
+    mutate(
+      dist = distance_between(VisibleRawHead.y - VisibleRawHead.x) %>%
+    ) %>%
+    summarize(
+      # Notice that the only difference is the summarize function
+      dist = sort(dist)[150]
+    )
+}
+
+# Now that the functions are defined, run them on the BIDS data
+results <- bd %>%
+  bids_motion() %>%
+  summarize_motion_pairs(
+    relate = select_which_motion_relation_function_you_want,
+    preprocess = preprocess,
+    ordered = T,
+    #head = 5,
+    progress = T
+  ) %>%
+  unnest(result)
+```
+
 
 ## Heatmap
 
