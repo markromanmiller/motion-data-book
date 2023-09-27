@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>motion-data-book - 1&nbsp; dddr: Three-Dimensional Vector Operations in R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./myrec.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./dddr.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">`dddr`: Three-Dimensional Vector Operations in R</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">motion-data-book</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dddr.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title"><code>dddr</code>: Three-Dimensional Vector Operations in R</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./myrec.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">MYREC File Format</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./bids.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">BIDS (Brain Imaging Data Structure)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./converting-myrec-bids.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Converting MYREC to BIDS</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./examples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Examples of Social Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#tidy" id="toc-tidy" class="nav-link active" data-scroll-target="#tidy"><span class="header-section-number">1.1</span> Tidy</a>
+  <ul class="collapse">
+  <li><a href="#what-is-tidy-data" id="toc-what-is-tidy-data" class="nav-link" data-scroll-target="#what-is-tidy-data"><span class="header-section-number">1.1.1</span> What is tidy data?</a></li>
+  <li><a href="#how-do-you-tidy-data-with-dddr" id="toc-how-do-you-tidy-data-with-dddr" class="nav-link" data-scroll-target="#how-do-you-tidy-data-with-dddr"><span class="header-section-number">1.1.2</span> How do you tidy data with <code>dddr</code>?</a></li>
+  </ul></li>
+  <li><a href="#visualize" id="toc-visualize" class="nav-link" data-scroll-target="#visualize"><span class="header-section-number">1.2</span> Visualize</a>
+  <ul class="collapse">
+  <li><a href="#messy-data-means-a-messy-visualization" id="toc-messy-data-means-a-messy-visualization" class="nav-link" data-scroll-target="#messy-data-means-a-messy-visualization"><span class="header-section-number">1.2.1</span> Messy data means a messy visualization</a></li>
+  <li><a href="#tidy-data-means-a-tidy-visualization" id="toc-tidy-data-means-a-tidy-visualization" class="nav-link" data-scroll-target="#tidy-data-means-a-tidy-visualization"><span class="header-section-number">1.2.2</span> Tidy data means a tidy visualization</a></li>
+  <li><a href="#ggplot2-extensions" id="toc-ggplot2-extensions" class="nav-link" data-scroll-target="#ggplot2-extensions"><span class="header-section-number">1.2.3</span> <code>ggplot2</code> extensions</a></li>
+  <li><a href="#semantics" id="toc-semantics" class="nav-link" data-scroll-target="#semantics"><span class="header-section-number">1.2.4</span> Semantics</a></li>
+  </ul></li>
+  <li><a href="#transform" id="toc-transform" class="nav-link" data-scroll-target="#transform"><span class="header-section-number">1.3</span> Transform</a>
+  <ul class="collapse">
+  <li><a href="#transforming-vector3" id="toc-transforming-vector3" class="nav-link" data-scroll-target="#transforming-vector3"><span class="header-section-number">1.3.1</span> Transforming <code>vector3</code></a></li>
+  <li><a href="#transforming-with-quat-and-rotate" id="toc-transforming-with-quat-and-rotate" class="nav-link" data-scroll-target="#transforming-with-quat-and-rotate"><span class="header-section-number">1.3.2</span> Transforming with <code>quat</code> and <code>rotate</code></a></li>
+  </ul></li>
+  <li><a href="#using-dddr" id="toc-using-dddr" class="nav-link" data-scroll-target="#using-dddr"><span class="header-section-number">1.4</span> Using <code>dddr</code></a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title"><code>dddr</code>: Three-Dimensional Vector Operations in R</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>The R package <code>dddr</code> (pronounced three-dee-arr) is designed for people working with <strong>person-scale, spatial</strong> data.</p>
+<ul>
+<li><strong>spatial</strong>: in contrast to most data, which is a single value (e.g., arousal, blinks per second, GDP), spatial data has multiple, tightly-linked values.</li>
+<li><strong>person-scale</strong>: in contrast to packages like <code>sf</code> or <code>rspatial</code> that focus on <em>geographic</em> data (latitude, longitude, altitude), person-scale data uses Euclidean 3D space.</li>
+</ul>
+<p>The roots of this library are in <em>behavioral tracing</em> (Yaremych &amp; Persky, 2019), the analysis of behavior recorded finely in both time and space. The primary example is using virtual and augmented reality to collect data on hand motion or head direction.</p>
+<p>Why do we want to do this? In short, this package helps you tidy, visualize, and transform your 3D data more effectively:</p>
+<ul>
+<li><p><strong>tidy</strong> 3D data into individual, meaningful columns</p></li>
+<li><p><strong>visualize</strong> 3D data according to natural spatial semantics</p></li>
+<li><p><strong>transform</strong> 3D data using common operations, including many from linear algebra</p></li>
+</ul>
+<p>These names refer to Hadley Wickham’s model of data science, which is a very good overview of the data science process.</p>
+<p><img src="dsloop.svg" class="img-fluid"></p>
+<section id="tidy" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="tidy"><span class="header-section-number">1.1</span> Tidy</h2>
+<p>Here’s a common example of 3D data in a table of some sort:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>messy_vectors</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 300 × 5
+   sensor_x sensor_y sensor_z temperature   time
+      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt;
+ 1     5     0          0            6.26 0.0333
+ 2     4.98  0.00165    0.314        4.66 0.0667
+ 3     4.94  0.00658    0.626        6.31 0.1   
+ 4     4.88  0.0147     0.934        6.24 0.133 
+ 5     4.80  0.0260     1.24         5.37 0.167 
+ 6     4.71  0.0403     1.53         3.41 0.2   
+ 7     4.59  0.0575     1.82         4.01 0.233 
+ 8     4.46  0.0774     2.10         4.64 0.267 
+ 9     4.31  0.0999     2.38         4.91 0.3   
+10     4.14  0.125      2.64         7.31 0.333 
+# ℹ 290 more rows</code></pre>
+</div>
+</div>
+<p>Let’s calculate the speed of the sensor.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>messy_vectors <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">delta_t =</span> time <span class="sc">-</span> <span class="fu">lag</span>(time),</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">velocity_x =</span> (sensor_x <span class="sc">-</span> <span class="fu">lag</span>(sensor_x)) <span class="sc">/</span> delta_t,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">velocity_y =</span> (sensor_y <span class="sc">-</span> <span class="fu">lag</span>(sensor_y)) <span class="sc">/</span> delta_t,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">velocity_z =</span> (sensor_z <span class="sc">-</span> <span class="fu">lag</span>(sensor_x)) <span class="sc">/</span> delta_t,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">speed =</span> <span class="fu">sqrt</span>(velocity_x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> velocity_y<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> velocity_z<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">starts_with</span>(<span class="st">"velocity"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 300 × 7
+   sensor_x sensor_y sensor_z temperature   time delta_t speed
+      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+ 1     5     0          0            6.26 0.0333 NA       NA  
+ 2     4.98  0.00165    0.314        4.66 0.0667  0.0333 141. 
+ 3     4.94  0.00658    0.626        6.31 0.1     0.0333 131. 
+ 4     4.88  0.0147     0.934        6.24 0.133   0.0333 120. 
+ 5     4.80  0.0260     1.24         5.37 0.167   0.0333 109. 
+ 6     4.71  0.0403     1.53         3.41 0.2     0.0333  98.1
+ 7     4.59  0.0575     1.82         4.01 0.233   0.0333  86.6
+ 8     4.46  0.0774     2.10         4.64 0.267   0.0333  74.7
+ 9     4.31  0.0999     2.38         4.91 0.3     0.0333  62.6
+10     4.14  0.125      2.64         7.31 0.333   0.0333  50.4
+# ℹ 290 more rows</code></pre>
+</div>
+</div>
+<p>While there’s seven lines of code, there are only two operations, conceptually. This code takes the difference between separate positions to compute a velocity vector, and then computes the magnitude (size) of this velocity vector.</p>
+<p>More importantly, this code is also <strong>buggy!</strong> Do you notice the line <code>sensor_z - lag(sensor_x)</code>? This doesn’t compute what we want. This error could be a simple copy-and-paste problem that would wouldn’t necessarily notice until you’re deep into writing other parts of your analysis. The more code you write, the more bugs you will have. Therefore, write less code and write less bugs.</p>
+<section id="what-is-tidy-data" class="level3" data-number="1.1.1">
+<h3 data-number="1.1.1" class="anchored" data-anchor-id="what-is-tidy-data"><span class="header-section-number">1.1.1</span> What is tidy data?</h3>
+<p>If the data were tidy, these steps would be less tedious.</p>
+<p>The three criteria for <em>tidy</em> data are:</p>
+<ul>
+<li>Each column represents a variable</li>
+<li>Each row represents an observation</li>
+<li>Each cell represents a value</li>
+</ul>
+<p><a href="https://r4ds.hadley.nz/data-tidy.html">Borrowing directly from Hadley again</a>:</p>
+<blockquote class="blockquote">
+<p>Why ensure that your data is tidy? There are two main advantages:</p>
+<p>There’s a general advantage to picking one consistent way of storing data. If you have a consistent data structure, it’s easier to learn the tools that work with it because they have an underlying uniformity.</p>
+<p>There’s a specific advantage to placing variables in columns because it allows R’s vectorized nature to shine. As you learned in Section 4.3.1 and Section 4.5.2, most built-in R functions work with vectors of values. That makes transforming tidy data feel particularly natural.</p>
+</blockquote>
+<p><img src="tidy_data.png" class="img-fluid"></p>
+<p>We think of position (or velocity) not as three variables, but as one variable represented by a triple of three numbers. Therefore, with tidy data, it should be only one column. This explains why working with XYZ data separately can be so tedious. This can be done with the <code>vector3</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tidy_vectors <span class="ot">&lt;-</span> messy_vectors <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">sensor =</span> <span class="fu">vector3</span>(<span class="at">x =</span> sensor_x, <span class="at">y =</span> sensor_y, <span class="at">z =</span> sensor_z) <span class="co">#&lt;&lt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sensor, time, temperature)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>tidy_vectors</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 300 × 3
+                   sensor   time temperature
+                   &lt;vct3&gt;  &lt;dbl&gt;       &lt;dbl&gt;
+ 1 (5   , 0      , 0    ) 0.0333        6.26
+ 2 (4.98, 0.00165, 0.314) 0.0667        4.66
+ 3 (4.94, 0.00658, 0.626) 0.1           6.31
+ 4 (4.88, 0.0147 , 0.934) 0.133         6.24
+ 5 (4.80, 0.0260 , 1.24 ) 0.167         5.37
+ 6 (4.71, 0.0403 , 1.53 ) 0.2           3.41
+ 7 (4.59, 0.0575 , 1.82 ) 0.233         4.01
+ 8 (4.46, 0.0774 , 2.10 ) 0.267         4.64
+ 9 (4.31, 0.0999 , 2.38 ) 0.3           4.91
+10 (4.14, 0.125  , 2.64 ) 0.333         7.31
+# ℹ 290 more rows</code></pre>
+</div>
+</div>
+<p>Let’s calculate speed again, and see what the code looks like.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>tidy_vectors <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">delta_t =</span> time <span class="sc">-</span> <span class="fu">lag</span>(time),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">sensor_velocity =</span> (sensor <span class="sc">-</span> <span class="fu">lag</span>(sensor)) <span class="sc">/</span> delta_t,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sensor_speed =</span> <span class="fu">magnitude</span>(sensor_velocity)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sensor, time, temperature, sensor_speed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Look! Now we have two lines of code to represent our two conceptual operations. One creates the velocity vector, and the other calculates the speed vector. This is much closer to how we should be thinking of this kind of data.</p>
+</section>
+<section id="how-do-you-tidy-data-with-dddr" class="level3" data-number="1.1.2">
+<h3 data-number="1.1.2" class="anchored" data-anchor-id="how-do-you-tidy-data-with-dddr"><span class="header-section-number">1.1.2</span> How do you tidy data with <code>dddr</code>?</h3>
+<p><code>dddr</code> revolves around two kinds of data: <code>vector3</code> and <code>quat</code>.</p>
+<section id="vector3" class="level4" data-number="1.1.2.1">
+<h4 data-number="1.1.2.1" class="anchored" data-anchor-id="vector3"><span class="header-section-number">1.1.2.1</span> <code>vector3</code></h4>
+<p>These represent 3D vectors, which can be position, velocity, acceleration, translation, direction, and other types of data.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The name <code>vector3</code> highlights the fact there are two kinds of vectors being discussed here: <em>3-vectors</em>, a geometric object with magnitude and direction, and <em>R vectors</em>, that represent ordered collections of one kind of data. This makes <code>vector3</code> an R vector of 3-vectors.</p>
+</div>
+</div>
+</section>
+<section id="quat" class="level4" data-number="1.1.2.2">
+<h4 data-number="1.1.2.2" class="anchored" data-anchor-id="quat"><span class="header-section-number">1.1.2.2</span> <code>quat</code></h4>
+<p>Short for quaternion, <code>quat</code>s represent orientations, angular velocities, and rigid rotations. While somewhat mathematically complex, <code>dddr</code> is written to minimize how much you actually work with, somewhat inspired by the Unity game engine. If you do want a mathematical grounding for what quaternions are, watch a series of videos (<a href="https://www.youtube.com/watch?v=d4EgbgTm0Bg">1</a>, <a href="https://www.youtube.com/watch?v=zjMuIxRvygQ">2</a>) and interactive explainers (<a href="https://eater.net/quaternions">3</a>) by Grant Sanderson and Ben Eater.</p>
+</section>
+</section>
+</section>
+<section id="visualize" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="visualize"><span class="header-section-number">1.2</span> Visualize</h2>
+<p>Data visualization is part of any data scientist’s toolbelt. Visualization is important for: - checking and cleaning data - understanding rich aspects of data - generating insights from data - reporting findings about data</p>
+<p>One feature of spatial data is that it has a lot of human language associated with it. We can ask about the top view of a scene, and it has a meaning - and if we tell the computer how to translate from XYZ to “top view”, it can perform the translation for us.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="labeled_cube.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">ViewCube, Khan et al.&nbsp;(2008)</figcaption>
+</figure>
+</div>
+<section id="messy-data-means-a-messy-visualization" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="messy-data-means-a-messy-visualization"><span class="header-section-number">1.2.1</span> Messy data means a messy visualization</h3>
+<p>Let’s plot this data from a <strong>top view</strong>. If <code>y</code> is the vertical dimension, then let’s use <code>x</code> and <code>z</code> to plot.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>messy_vectors <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sensor_x, <span class="at">y =</span> sensor_z, <span class="at">color =</span> sensor_y)) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_equal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="dddr_files/figure-html/messy-viz-1.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<p>Some of the things this visualization can tell you are that:</p>
+<ul>
+<li>it spirals inward as you go counterclockwise (looking from the top view)</li>
+<li>the back side (high Z) is higher (high Y)</li>
+</ul>
+<p>Nothing seems wrong yet, right?</p>
+</section>
+<section id="tidy-data-means-a-tidy-visualization" class="level3" data-number="1.2.2">
+<h3 data-number="1.2.2" class="anchored" data-anchor-id="tidy-data-means-a-tidy-visualization"><span class="header-section-number">1.2.2</span> Tidy data means a tidy visualization</h3>
+<p>Again, let’s plot this data from a top view, but this time, let’s do so with dddr.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>tidy_vectors <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">v =</span> sensor)) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_look_at_top</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Wait, that’s not counterclockwise as you go in… That’s <em>clockwise</em>.</p>
+<p><strong>In the messy data plot, we accidentally chose the wrong axes - by choosing x for x and y for z, it meant that we had transformed the data like in a mirror, changing the handedness of the coordinate system.</strong></p>
+<p>Following a semantic interpretation through all the spatial conventions can be tricky. This is a theme we’ll explore in a bit.</p>
+</section>
+<section id="ggplot2-extensions" class="level3" data-number="1.2.3">
+<h3 data-number="1.2.3" class="anchored" data-anchor-id="ggplot2-extensions"><span class="header-section-number">1.2.3</span> <code>ggplot2</code> extensions</h3>
+<p>As visible in the code above, <code>dddr</code> plugs directly into <code>ggplot</code>. Some of the handy pieces are:</p>
+<ul>
+<li><code>geom</code>s (geometric objects):
+<ul>
+<li><code>geom_point3</code>, <code>geom_path3</code></li>
+<li><code>geom_spoke</code> (direction)</li>
+</ul></li>
+<li><code>coord</code>s (coordinate systems) are specified with <code>coord_(frame)_(direction)</code>
+<ul>
+<li><code>coord_look_at_top</code>: Create the view as if you’re <strong>looking at</strong> the <strong>top</strong> of the object.</li>
+</ul></li>
+<li>Additional <code>theme</code> parameters for the axis rose under <code>dddr.rose.*</code></li>
+</ul>
+</section>
+<section id="semantics" class="level3" data-number="1.2.4">
+<h3 data-number="1.2.4" class="anchored" data-anchor-id="semantics"><span class="header-section-number">1.2.4</span> Semantics</h3>
+<p>If you have worked with 3D data before, think of the coordinate system you know well.</p>
+<ul>
+<li>What direction is up?</li>
+<li>What direction is forward?</li>
+<li>What direction is right?</li>
+<li>Is the coordinate system left-handed or right-handed?</li>
+<li>Which axis does “roll” go around?</li>
+<li>Does a negative roll make the y-axis move towards the old x-axis, or vice versa?</li>
+<li>If you have three rotations (roll, pitch, yaw) in what order are they applied?</li>
+<li>If a pitch comes after a roll, does the pitch go around the old axis, or the new axis?</li>
+</ul>
+<p>How many of the questions did you answer confidently and correctly?</p>
+<p>There are 48 potential axis semantics, and 144 potential angle semantics. Some are simple reflections of each other; some are simple rotations; most are neither. This provides a significant challenge when working with “just” XYZ data.</p>
+<p>Vectors in 3D space need to have some <em>axis semantics</em>. What meanings - up, down, forward, backward, right, left - are assigned to the positive and negative X-, Y-, and Z-axis? There are 48 different possible conventions, but only a handful are in common use.</p>
+<p>Once the axis semantics are defined, rotations defined by rotation matrices or quaternions are also defined. However, rotations and orientations are often specified using Euler angles or Tait-Bryan angles such as yaw, pitch, and roll. To interpret these consistently, <code>dddr</code> uses <em>angle semantics</em>, specifying what yaw, pitch, and roll mean. What axis is each rotation performed around? What order do these rotations go in? Are the rotations applied to the axes of future rotations? Given three angles, there are 144 possible rotations that could be referred to.</p>
+<p><code>dddr</code> provides some handy defaults in commonly used coordinate systems, such as this code for Unity’s coordinate system.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set_dddr_semantics</span>(<span class="at">axes =</span> semantics_axes_unity, <span class="at">angles =</span> semantics_angles_unity)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="transform" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="transform"><span class="header-section-number">1.3</span> Transform</h2>
+<p>Oftentimes the data isn’t showing what you want, and you need to create, modify, amd summarize columns to get to a new result.</p>
+<section id="transforming-vector3" class="level3" data-number="1.3.1">
+<h3 data-number="1.3.1" class="anchored" data-anchor-id="transforming-vector3"><span class="header-section-number">1.3.1</span> Transforming <code>vector3</code></h3>
+<p>The <code>vector3</code> class supports a wide range of functions. In these examples, <code>u</code>, <code>v</code>, <code>w</code> are <code>vector3</code>s, <code>q</code> and <code>p</code> are <code>quat</code>s, and <code>x</code> is a numeric.</p>
+<ul>
+<li>Creation: <code>v &lt;- vector3(x = xs, y = ys, z = zs)</code></li>
+<li>Field access: <code>v$x</code>, <code>v$y</code>, <code>v$z</code></li>
+<li>Vector properties: <code>magnitude(v)</code>, <code>direction(v)</code></li>
+<li>Arithmetic: <code>v + w</code>, <code>v - w</code>, <code>2 * v</code>, <code>v / x</code></li>
+<li>R vector math: <code>mean(v)</code>, <code>sum(v)</code>, <code>cumsum(v)</code></li>
+<li>3-vector math: <code>dot(v, w)</code>, <code>cross(v, w)</code></li>
+<li>Spatial operations:
+<ul>
+<li><code>project(v, onto=w)</code>, <code>reject(v, from=w)</code></li>
+<li><code>angle_between(v, w, around=u)</code>, <code>distance_between(v, w)</code>,</li>
+</ul></li>
+</ul>
+</section>
+<section id="transforming-with-quat-and-rotate" class="level3" data-number="1.3.2">
+<h3 data-number="1.3.2" class="anchored" data-anchor-id="transforming-with-quat-and-rotate"><span class="header-section-number">1.3.2</span> Transforming with <code>quat</code> and <code>rotate</code></h3>
+<p>Working with quaternions can be a little difficult, but when necessary, there are operations that support it:</p>
+<ul>
+<li>Creation: <code>q &lt;- quat(w = ws, x = xs, y = ys, z = zs)</code></li>
+<li>Multiplication (composition): <code>r &lt;- p * q</code></li>
+<li>Conjugation (inversion): <code>Conj(q)</code></li>
+<li>Quaternion equality: <code>quat(1, 0, 0, 0) == quat(-1, 0, 0, 0)</code></li>
+</ul>
+<p>Working in Tait-Bryan angles is more straightforward.</p>
+<ul>
+<li>Create a quaternion: <code>q &lt;- tait_bryan(yaw, pitch, roll)</code></li>
+<li>Pull out the rotation values: <code>yaw(q)</code>, <code>pitch(q)</code>, <code>roll(q)</code></li>
+</ul>
+<p>Quaternions are used to rotate.</p>
+<ul>
+<li>Rotate using a quaternion: <code>rotate(v, q)</code></li>
+<li>Rotate around a point: <code>rotate(v, q, origin = w)</code></li>
+<li>Rotate through an angle around an axis: <code>rotate(v, angle = x, axis = w)</code></li>
+<li>Rotate along the shortest path implied by two vectors: <code>rotate(v, from = w, to = u)</code></li>
+</ul>
+</section>
+</section>
+<section id="using-dddr" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="using-dddr"><span class="header-section-number">1.4</span> Using <code>dddr</code></h2>
+<p>Installation is done through Github and devtools, as dddr is not ready for CRAN just yet.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># if you have not installed "devtools"</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"devtools"</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># For the most recent released version of dddr</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"markromanmiller/dddr@*release"</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># For the development version of dddr</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"markromanmiller/dddr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Questions about dddr and bug reports are always appreciated! Email me at mmiller30 -at- iit -dot- edu, or file a bug report on the <a href="https://github.com/markromanmiller/dddr">Github repository</a>.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Overview</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./myrec.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">MYREC File Format</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
