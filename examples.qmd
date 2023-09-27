@@ -14,9 +14,9 @@ A very simple option is to simply take the average. In some highly controlled si
 
 In some work (for example, the study "Proxemics and Gaze in Virtual Environments" that I led at IEEE VR 2023), I instead went with a not-quite-minimum. This, to me, better captured the fact that interpersonal distance is more about how close you are without feeling uncomfortable. The reason this was used instead of minimum was because occastionally people might teleport too close to each other and need to adjust their distance.
 
-Code for both is below. 
+Code for both is below.
 
-```r
+``` r
 # Take the file, read it, and get virtual position of root, and physical position of head, and find visible position.
 preprocess <- function(file_path, session_id, participant_id, ...) {
   # exactly one file per person
@@ -44,7 +44,7 @@ average_distance_between <- function(px_data, py_data) {
 
   joined %>%
     mutate(
-      dist = distance_between(VisibleRawHead.y - VisibleRawHead.x) %>%
+      dist = distance_between(VisibleRawHead.y, VisibleRawHead.x) %>%
     ) %>%
     summarize(
       dist = mean(dist)
@@ -82,14 +82,13 @@ results <- bd %>%
   unnest(result)
 ```
 
-
 ## Heatmap
 
 ## Gaze distribution
 
 ## Mutual gaze
 
-```r
+``` r
 # Load libraries
 library(tidyverse)
 devtools::load_all("~/thesis/multiverse/")
@@ -184,6 +183,5 @@ output_file <- paste0("results_", strftime(Sys.time(), format = "%y_%m_%d_%H%M%S
 cat("Output file at", output_file)
 
 results %>% write_csv(output_file)
-
 
 ```
