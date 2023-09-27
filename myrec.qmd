@@ -55,6 +55,35 @@ The only other variable we used was `LipSyncAverageflox`, which indicated the am
 
 **3D Vectors** are demarcated in a special way relative to other data types. The three elements of the vector are separated with infix `<` symbols, and changes propagate along dimension individually. For example, the value `|<2.345<|` means the y-value changed to 2.345, but the x- and z- values remained the same. Position and rotation vectors were written the same way; they only difference in the data itself is the variable name discussed above. Positions are interpreted as `X<Y<Z`, where axis conventions are used according to Unity (Y up, Z out, left-handed). Rotations are interpreted as `pitch<yaw<roll`, where angle conventions are also used according to Unity.
 
-## Conventions
+## Interpretations
 
-(more could be written here --- a good threshold for smooth motion is 3.05 m/s)
+### Root, Head, Hands / Physical, Virtual, and Visible Motion
+
+ENGAGE separates out motion into four related channels. `AvaRoot` stands for Avatar Root, and it defines the coordinate transformation from the coordinate space for `Head`, `LeftHand`, and `RightHand` into the global coordinate system. What is particularly nice about ENGAGE's data being in this format is that one can distinguish between *physical*, *virtual*, and *visible* motion. 
+
+With virtual reality, what is *visible* to others in the virtual environment is a result of two kinds of motion: *physical* and *virtual* motion.
+
+- **Physical** motion is what it sounds like: it's motion in the physical [real] world. Moving one's real hand creates physical motion. Calculating the physical position and motion is just as easy as selecting just the `Head`, `LeftHand`, and `RightHand` columns.
+- **Virtual** motion is motion that is caused by some process that doesn't directly represent the motion. For example, teleporting is a kind of virtual motion, and so is pressing a button and moving in the virtual world. The thing that caused that motion wasn't literally motion, it was something translated by the system. This is given by just the `AvaRoot` columns, because it's the same in ENGAGE across all the three other tracked points.
+- **Visible** motion is the motion that is (usually) the vector sum of these two types of motion. This is the way ENGAGE does it, at least. It is the motion with the virtual world as its framing. To calculate the visible position using `dddr` and `ungage`, take the example of this code:
+```r
+read_tsv(file_path, col_types = list(Timestamp = col_time("%H:%M:%OS"))) %>%
+  bundle(
+    Root = "AvaRoot_Pos{v}",
+    RootRot = "AvaRoot_Rot{ed}",
+    PhysicalHead = "Head_Pos{v}",
+    PhysicalHeadRot = "Head_Rot{ed}"
+  ) %>%
+  select(Timestamp, Root, RootRot, PhysicalHead, PhysicalHeadRot) %>%
+  mutate(
+    # convert to visible motion
+    VisibleRawHead = Root + rotate(PhysicalHead, RootRot),
+    VisibleRawHeadRot = rotate(PhysicalHeadRot, RootRot, as = "orientation")
+  )
+```
+
+It should be noted this taxonomy is not complete. For example, it doesn't allow for describing alternative methods of motion, such as redirected walking or visuo-haptic illusions. Nevertheless, it is a useful description of motion when working with ENGAGE.
+
+### others...
+
+\[\[more could be written here --- a good threshold for smooth motion is 3.05 m/s\]\]
