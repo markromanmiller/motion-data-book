@@ -4,4 +4,3 @@ link:
 https://bids-specification.readthedocs.io/en/stable/
 
 also: https://docs.google.com/document/d/1iaaLKgWjK5pcISD1MVxHKexB3PZWfE2aAC5HF_pCZWo/edit
-

@@ -1,4 +1,4 @@
-# Examples of Social Analysis
+# Examples of Social Analysis {#sec-examples}
 
 ## libraries
 
@@ -183,5 +183,4 @@ output_file <- paste0("results_", strftime(Sys.time(), format = "%y_%m_%d_%H%M%S
 cat("Output file at", output_file)
 
 results %>% write_csv(output_file)
-
 ```

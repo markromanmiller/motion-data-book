@@ -1,0 +1,17 @@
+# Key Measures, Calculations, Interpretations {#sec-key-measures}
+
+## Velocity
+
+
+
+## Speed
+
+### Positional Speed
+
+### Rotational Speed
+
+It's not yaw^2, pitch^2, roll^2
+
+it's ... `code` (should be a library function)
+
+

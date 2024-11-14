@@ -1,0 +1,37 @@
+# Thinking about Space, Mathematically {#sec-space-math}
+
+## Terminology
+
+- acceleration
+- velocity
+- speed
+- jerk 
+  - snap, crackle, pop, etc.
+  
+- orientation (loops back)
+- angular velocity (direction and magnitude)
+- angular acceleration (direction and magnitude)
+
+## Representing Position
+
+- 3d Vector. Pretty straightforward.
+- Know your coordinate basis.
+
+## Representing Rotations
+
+### Tait-Bryan (Euler) Angles
+
+- Commonly used
+- Technically called tait-bryan angles in most situations
+- 
+
+### Rotation Matrices
+
+- nice when you don't have a lot of them lined up by time
+- but they are pretty decent to train on (find that 6DOF paper)
+
+
+### Quaternions
+
+(3b1b video)
+half-angle axis

@@ -7,9 +7,12 @@ book:
   date: "9/27/2022"
   chapters:
     - index.qmd
+    - space-science.qmd
+    - space-math.qmd
     - dddr.qmd
-    - myrec.qmd
+    - key-measures.qmd
     - bids.qmd
+    - myrec.qmd
     - converting-myrec-bids.qmd
     - examples.qmd
     - references.qmd

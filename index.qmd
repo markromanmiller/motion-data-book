@@ -4,10 +4,11 @@
 
 Part of it is motion in general...
 
--   Thinking about space, scientifically
+-   @{sec-space-science}: Thinking about space, scientifically
     -   geospatial vs. human-spatial
     -   personal space findings
--   Thinking about space, mathematically
+-   @{sec-space-math}: Thinking about space, mathematically
+
 -   Tidy spatial data with `dddr`
     -   why a separate library
 -   Key spatial operations
@@ -20,3 +21,13 @@ The process is (in order):
 -   Understanding the BIDS format
 -   Converting from .myrec to BIDS
 -   Example analysis
+
+## Motion Data Analysis
+
+The best place to start is with tidy data. Tidy data, for an experiment, is best in the BIDS format. This format specifies a file name and folder structure convention in addition to existing data structures (tsv) so that the structure of the experiment (conditions, participants, time points) is explicitly modeled rather than implicit.
+
+Data already in this format can be processed using [the `rbids` library](https://github.com/markromanmiller/rbids). Documentation is largely not present, unfortunately.
+
+`rbids` is not specific to motion data, though, so working with motion data is done with the `dddr` library (see @sec-dddr). `dddr` has quite a few functions an decent documentation, but still has bugs.
+
+Finally, built upon `rbids` is what is currently called [`synsyn` (for synchronizing on synchrony measurement)](https://github.com/markromanmiller/synsyn). This "package" is currently just two functions that aid in applying the same function to either each person's data ('summarize_motion') or pairs who attended the same session ('summarize_motion_pairs').

@@ -1,4 +1,4 @@
-# `dddr`: Three-Dimensional Vector Operations in R
+# `dddr`: Three-Dimensional Vector Operations in R {#sec-dddr}
 
 ```{r load-packages, include=F}
 library(tidyverse)
@@ -20,21 +20,20 @@ messy_vectors <- tibble(radius = seq(5, 2.00001, by = -0.01)) %>%
   select(-tilt, -theta, -radius)
 ```
 
-
 The R package `dddr` (pronounced three-dee-arr) is designed for people working with **person-scale, spatial** data.
 
-- **spatial**: in contrast to most data, which is a single value (e.g., arousal, blinks per second, GDP), spatial data has multiple, tightly-linked values.
-- **person-scale**: in contrast to packages like `sf` or `rspatial` that focus on *geographic* data (latitude, longitude, altitude), person-scale data uses Euclidean 3D space.
+-   **spatial**: in contrast to most data, which is a single value (e.g., arousal, blinks per second, GDP), spatial data has multiple, tightly-linked values.
+-   **person-scale**: in contrast to packages like `sf` or `rspatial` that focus on *geographic* data (latitude, longitude, altitude), person-scale data uses Euclidean 3D space.
 
 The roots of this library are in *behavioral tracing* (Yaremych & Persky, 2019), the analysis of behavior recorded finely in both time and space. The primary example is using virtual and augmented reality to collect data on hand motion or head direction.
 
 Why do we want to do this? In short, this package helps you tidy, visualize, and transform your 3D data more effectively:
 
-- **tidy** 3D data into individual, meaningful columns
+-   **tidy** 3D data into individual, meaningful columns
 
-- **visualize** 3D data according to natural spatial semantics
+-   **visualize** 3D data according to natural spatial semantics
 
-- **transform** 3D data using common operations, including many from linear algebra
+-   **transform** 3D data using common operations, including many from linear algebra
 
 These names refer to Hadley Wickham's model of data science, which is a very good overview of the data science process.
 
@@ -64,24 +63,24 @@ messy_vectors %>%
 While there's seven lines of code, there are only two operations, conceptually. This code takes the difference between separate positions to compute a velocity vector, and then computes the magnitude (size) of this velocity vector.
 
 More importantly, this code is also **buggy!** Do you notice the line `sensor_z - lag(sensor_x)`? This doesn't compute what we want. This error could be a simple copy-and-paste problem that would wouldn't necessarily notice until you're deep into writing other parts of your analysis. The more code you write, the more bugs you will have. Therefore, write less code and write less bugs.
-  
+
 ### What is tidy data?
 
 If the data were tidy, these steps would be less tedious.
 
 The three criteria for *tidy* data are:
 
-- Each column represents a variable
-- Each row represents an observation
-- Each cell represents a value
+-   Each column represents a variable
+-   Each row represents an observation
+-   Each cell represents a value
 
 [Borrowing directly from Hadley again](https://r4ds.hadley.nz/data-tidy.html):
 
 > Why ensure that your data is tidy? There are two main advantages:
-> 
-> There’s a general advantage to picking one consistent way of storing data. If you have a consistent data structure, it’s easier to learn the tools that work with it because they have an underlying uniformity.
-> 
-> There’s a specific advantage to placing variables in columns because it allows R’s vectorized nature to shine. As you learned in Section 4.3.1 and Section 4.5.2, most built-in R functions work with vectors of values. That makes transforming tidy data feel particularly natural.
+>
+> There's a general advantage to picking one consistent way of storing data. If you have a consistent data structure, it's easier to learn the tools that work with it because they have an underlying uniformity.
+>
+> There's a specific advantage to placing variables in columns because it allows R's vectorized nature to shine. As you learned in Section 4.3.1 and Section 4.5.2, most built-in R functions work with vectors of values. That makes transforming tidy data feel particularly natural.
 
 ![](tidy_data.png)
 
@@ -96,7 +95,6 @@ tidy_vectors <- messy_vectors %>%
 
 tidy_vectors
 ```
-
 
 Let's calculate speed again, and see what the code looks like.
 
@@ -120,7 +118,7 @@ Look! Now we have two lines of code to represent our two conceptual operations. 
 
 These represent 3D vectors, which can be position, velocity, acceleration, translation, direction, and other types of data.
 
-::: {.callout-note}
+::: callout-note
 The name `vector3` highlights the fact there are two kinds of vectors being discussed here: *3-vectors*, a geometric object with magnitude and direction, and *R vectors*, that represent ordered collections of one kind of data. This makes `vector3` an R vector of 3-vectors.
 :::
 
@@ -130,16 +128,11 @@ Short for quaternion, `quat`s represent orientations, angular velocities, and ri
 
 ## Visualize
 
-Data visualization is part of any data scientist's toolbelt. Visualization is important for:
-- checking and cleaning data
-- understanding rich aspects of data
-- generating insights from data
-- reporting findings about data
+Data visualization is part of any data scientist's toolbelt. Visualization is important for: - checking and cleaning data - understanding rich aspects of data - generating insights from data - reporting findings about data
 
 One feature of spatial data is that it has a lot of human language associated with it. We can ask about the top view of a scene, and it has a meaning - and if we tell the computer how to translate from XYZ to "top view", it can perform the translation for us.
 
 ![ViewCube, Khan et al. (2008)](labeled_cube.png)
-
 
 ### Messy data means a messy visualization
 
@@ -154,8 +147,8 @@ messy_vectors %>%
 
 Some of the things this visualization can tell you are that:
 
-- it spirals inward as you go counterclockwise (looking from the top view)
-- the back side (high Z) is higher (high Y)
+-   it spirals inward as you go counterclockwise (looking from the top view)
+-   the back side (high Z) is higher (high Y)
 
 Nothing seems wrong yet, right?
 
@@ -180,25 +173,25 @@ Following a semantic interpretation through all the spatial conventions can be t
 
 As visible in the code above, `dddr` plugs directly into `ggplot`. Some of the handy pieces are:
 
-- `geom`s (geometric objects):
-  - `geom_point3`, `geom_path3`
-  - `geom_spoke` (direction)
-- `coord`s (coordinate systems) are specified with `coord_(frame)_(direction)`
-  - `coord_look_at_top`: Create the view as if you're **looking at** the **top** of the object.
-- Additional `theme` parameters for the axis rose under `dddr.rose.*`
+-   `geom`s (geometric objects):
+    -   `geom_point3`, `geom_path3`
+    -   `geom_spoke` (direction)
+-   `coord`s (coordinate systems) are specified with `coord_(frame)_(direction)`
+    -   `coord_look_at_top`: Create the view as if you're **looking at** the **top** of the object.
+-   Additional `theme` parameters for the axis rose under `dddr.rose.*`
 
 ### Semantics
 
 If you have worked with 3D data before, think of the coordinate system you know well.
 
-- What direction is up?
-- What direction is forward?
-- What direction is right?
-- Is the coordinate system left-handed or right-handed?
-- Which axis does "roll" go around?
-- Does a negative roll make the y-axis move towards the old x-axis, or vice versa?
-- If you have three rotations (roll, pitch, yaw) in what order are they applied?
-- If a pitch comes after a roll, does the pitch go around the old axis, or the new axis?
+-   What direction is up?
+-   What direction is forward?
+-   What direction is right?
+-   Is the coordinate system left-handed or right-handed?
+-   Which axis does "roll" go around?
+-   Does a negative roll make the y-axis move towards the old x-axis, or vice versa?
+-   If you have three rotations (roll, pitch, yaw) in what order are they applied?
+-   If a pitch comes after a roll, does the pitch go around the old axis, or the new axis?
 
 How many of the questions did you answer confidently and correctly?
 
@@ -214,53 +207,50 @@ Once the axis semantics are defined, rotations defined by rotation matrices or q
 set_dddr_semantics(axes = semantics_axes_unity, angles = semantics_angles_unity)
 ```
 
-
 ## Transform
 
-Oftentimes the data isn't showing what you want, and you need to create, modify, amd summarize columns to get to a new result. 
+Oftentimes the data isn't showing what you want, and you need to create, modify, amd summarize columns to get to a new result.
 
 ### Transforming `vector3`
 
 The `vector3` class supports a wide range of functions. In these examples, `u`, `v`, `w` are `vector3`s, `q` and `p` are `quat`s, and `x` is a numeric.
 
-- Creation: `v <- vector3(x = xs, y = ys, z = zs)`
-- Field access: `v$x`, `v$y`, `v$z`
-- Vector properties: `magnitude(v)`, `direction(v)`
-- Arithmetic: `v + w`, `v - w`, `2 * v`, `v / x`
-- R vector math: `mean(v)`, `sum(v)`, `cumsum(v)`
-- 3-vector math: `dot(v, w)`, `cross(v, w)`
-- Spatial operations:
-  - `project(v, onto=w)`, `reject(v, from=w)`
-  - `angle_between(v, w, around=u)`, `distance_between(v, w)`,
-
+-   Creation: `v <- vector3(x = xs, y = ys, z = zs)`
+-   Field access: `v$x`, `v$y`, `v$z`
+-   Vector properties: `magnitude(v)`, `direction(v)`
+-   Arithmetic: `v + w`, `v - w`, `2 * v`, `v / x`
+-   R vector math: `mean(v)`, `sum(v)`, `cumsum(v)`
+-   3-vector math: `dot(v, w)`, `cross(v, w)`
+-   Spatial operations:
+    -   `project(v, onto=w)`, `reject(v, from=w)`
+    -   `angle_between(v, w, around=u)`, `distance_between(v, w)`,
 
 ### Transforming with `quat` and `rotate`
 
 Working with quaternions can be a little difficult, but when necessary, there are operations that support it:
 
-- Creation: `q <- quat(w = ws, x = xs, y = ys, z = zs)`
-- Multiplication (composition): ` r <- p * q`
-- Conjugation (inversion): `Conj(q)`
-- Quaternion equality: `quat(1, 0, 0, 0) == quat(-1, 0, 0, 0)`
+-   Creation: `q <- quat(w = ws, x = xs, y = ys, z = zs)`
+-   Multiplication (composition): `q2 <- p * q`
+-   Conjugation (inversion): `Conj(q)`
+-   Quaternion equality: `quat(1, 0, 0, 0) == quat(-1, 0, 0, 0)`
 
 Working in Tait-Bryan angles is more straightforward.
 
-- Create a quaternion: `q <- tait_bryan(yaw, pitch, roll)`
-- Pull out the rotation values: `yaw(q)`, `pitch(q)`, `roll(q)`
+-   Create a quaternion: `q <- tait_bryan(yaw, pitch, roll)`
+-   Pull out the rotation values: `yaw(q)`, `pitch(q)`, `roll(q)`
 
 Quaternions are used to rotate.
 
-- Rotate using a quaternion: `rotate(v, q)`
-- Rotate around a point: `rotate(v, q, origin = w)`
-- Rotate through an angle around an axis: `rotate(v, angle = x, axis = w)`
-- Rotate along the shortest path implied by two vectors: `rotate(v, from = w, to = u)`
-
+-   Rotate using a quaternion: `rotate(v, q)`
+-   Rotate around a point: `rotate(v, q, origin = w)`
+-   Rotate through an angle around an axis: `rotate(v, angle = x, axis = w)`
+-   Rotate along the shortest path implied by two vectors: `rotate(v, from = w, to = u)`
 
 ## Using `dddr`
 
 Installation is done through Github and devtools, as dddr is not ready for CRAN just yet.
 
-```r
+``` r
 # if you have not installed "devtools"
 install.packages("devtools")
 
@@ -272,5 +262,3 @@ devtools::install_github("markromanmiller/dddr")
 ```
 
 Questions about dddr and bug reports are always appreciated! Email me at mmiller30 -at- iit -dot- edu, or file a bug report on the [Github repository](https://github.com/markromanmiller/dddr).
-
-
