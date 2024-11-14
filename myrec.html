@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>motion-data-book - 2&nbsp; MYREC File Format</title>
+<title>6&nbsp; MYREC File Format – motion-data-book</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -64,8 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./bids.html" rel="next">
-<link href="./dddr.html" rel="prev">
+<link href="./converting-myrec-bids.html" rel="next">
+<link href="./bids.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -81,7 +81,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -90,6 +96,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -105,13 +112,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./myrec.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">MYREC File Format</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./myrec.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">MYREC File Format</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -120,7 +127,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">motion-data-book</a> 
@@ -141,32 +148,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./dddr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title"><code>dddr</code>: Three-Dimensional Vector Operations in R</span></span></a>
+  <a href="./space-science.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Thinking about Space, Scientifically</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./myrec.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">MYREC File Format</span></span></a>
+  <a href="./space-math.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Thinking about Space, Mathematically</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dddr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title"><code>dddr</code>: Three-Dimensional Vector Operations in R</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./key-measures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Key Measures, Calculations, Interpretations</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./bids.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">BIDS (Brain Imaging Data Structure)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">BIDS (Brain Imaging Data Structure)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./myrec.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">MYREC File Format</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./converting-myrec-bids.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Converting MYREC to BIDS</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Converting MYREC to BIDS</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./examples.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Examples of Social Analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Examples of Social Analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -178,26 +203,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#file-structure" id="toc-file-structure" class="nav-link active" data-scroll-target="#file-structure"><span class="header-section-number">2.1</span> File structure</a></li>
-  <li><a href="#file-contents" id="toc-file-contents" class="nav-link" data-scroll-target="#file-contents"><span class="header-section-number">2.2</span> File Contents</a>
+  <li><a href="#file-structure" id="toc-file-structure" class="nav-link active" data-scroll-target="#file-structure"><span class="header-section-number">6.1</span> File structure</a></li>
+  <li><a href="#file-contents" id="toc-file-contents" class="nav-link" data-scroll-target="#file-contents"><span class="header-section-number">6.2</span> File Contents</a>
   <ul class="collapse">
-  <li><a href="#count.txt" id="toc-count.txt" class="nav-link" data-scroll-target="#count.txt"><span class="header-section-number">2.2.1</span> count.txt</a></li>
-  <li><a href="#master.txt" id="toc-master.txt" class="nav-link" data-scroll-target="#master.txt"><span class="header-section-number">2.2.2</span> master.txt</a></li>
-  <li><a href="#audioothers.mp3" id="toc-audioothers.mp3" class="nav-link" data-scroll-target="#audioothers.mp3"><span class="header-section-number">2.2.3</span> audioothers.mp3</a></li>
-  <li><a href="#events.txt" id="toc-events.txt" class="nav-link" data-scroll-target="#events.txt"><span class="header-section-number">2.2.4</span> events.txt</a></li>
-  <li><a href="#stream.txt" id="toc-stream.txt" class="nav-link" data-scroll-target="#stream.txt"><span class="header-section-number">2.2.5</span> stream.txt</a></li>
+  <li><a href="#count.txt" id="toc-count.txt" class="nav-link" data-scroll-target="#count.txt"><span class="header-section-number">6.2.1</span> count.txt</a></li>
+  <li><a href="#master.txt" id="toc-master.txt" class="nav-link" data-scroll-target="#master.txt"><span class="header-section-number">6.2.2</span> master.txt</a></li>
+  <li><a href="#audioothers.mp3" id="toc-audioothers.mp3" class="nav-link" data-scroll-target="#audioothers.mp3"><span class="header-section-number">6.2.3</span> audioothers.mp3</a></li>
+  <li><a href="#events.txt" id="toc-events.txt" class="nav-link" data-scroll-target="#events.txt"><span class="header-section-number">6.2.4</span> events.txt</a></li>
+  <li><a href="#stream.txt" id="toc-stream.txt" class="nav-link" data-scroll-target="#stream.txt"><span class="header-section-number">6.2.5</span> stream.txt</a></li>
   </ul></li>
-  <li><a href="#interpretations" id="toc-interpretations" class="nav-link" data-scroll-target="#interpretations"><span class="header-section-number">2.3</span> Interpretations</a>
+  <li><a href="#interpretations" id="toc-interpretations" class="nav-link" data-scroll-target="#interpretations"><span class="header-section-number">6.3</span> Interpretations</a>
   <ul class="collapse">
-  <li><a href="#root-head-hands-physical-virtual-and-visible-motion" id="toc-root-head-hands-physical-virtual-and-visible-motion" class="nav-link" data-scroll-target="#root-head-hands-physical-virtual-and-visible-motion"><span class="header-section-number">2.3.1</span> Root, Head, Hands / Physical, Virtual, and Visible Motion</a></li>
-  <li><a href="#others" id="toc-others" class="nav-link" data-scroll-target="#others"><span class="header-section-number">2.3.2</span> others…</a></li>
+  <li><a href="#root-head-hands-physical-virtual-and-visible-motion" id="toc-root-head-hands-physical-virtual-and-visible-motion" class="nav-link" data-scroll-target="#root-head-hands-physical-virtual-and-visible-motion"><span class="header-section-number">6.3.1</span> Root, Head, Hands / Physical, Virtual, and Visible Motion</a></li>
+  <li><a href="#others" id="toc-others" class="nav-link" data-scroll-target="#others"><span class="header-section-number">6.3.2</span> others…</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -207,7 +232,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">MYREC File Format</span></h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">MYREC File Format</span></h1>
 </div>
 
 
@@ -220,11 +245,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
 
+
 <p>The .myrec file format is a proprietary, undocumented, and unsupported VR recording format from ENGAGE. In it contains everything that the ENGAGE client needs to re-render a recording. Fortunately for those who study human behavior, this recording contains quite a view streams of data in high temporal fidelity. The recording includes position and rotation data for each participant, as well as IFX interactions, avatar choices, audio, and button events.</p>
-<section id="file-structure" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="file-structure"><span class="header-section-number">2.1</span> File structure</h2>
+<section id="file-structure" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="file-structure"><span class="header-section-number">6.1</span> File structure</h2>
 <p>The .myrec file is a ZIP file archive that contains several compressed files within it. This file structure is consistent across all .myrec files that I’ve encountered from June to December 2021. Once unzipped recursively, the file structure is:</p>
 <ul>
 <li><code>count.txt</code></li>
@@ -243,30 +270,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>Each file is described below.</p>
 </section>
-<section id="file-contents" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="file-contents"><span class="header-section-number">2.2</span> File Contents</h2>
-<section id="count.txt" class="level3" data-number="2.2.1">
-<h3 data-number="2.2.1" class="anchored" data-anchor-id="count.txt"><span class="header-section-number">2.2.1</span> count.txt</h3>
+<section id="file-contents" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="file-contents"><span class="header-section-number">6.2</span> File Contents</h2>
+<section id="count.txt" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="count.txt"><span class="header-section-number">6.2.1</span> count.txt</h3>
 <p>This file is a one-line file in what appears to be key-value pairs. Pairs are separated by a semicolon, and keys and values are separated by a pipe.</p>
 <ul>
 <li><code>streamCount</code>: the number of <code>streamN</code> archives in the top-level archive, where <code>N</code> is a non-negative integer.</li>
 <li><code>sceneID</code>: the environment in which the recording takes place.</li>
 </ul>
 </section>
-<section id="master.txt" class="level3" data-number="2.2.2">
-<h3 data-number="2.2.2" class="anchored" data-anchor-id="master.txt"><span class="header-section-number">2.2.2</span> master.txt</h3>
+<section id="master.txt" class="level3" data-number="6.2.2">
+<h3 data-number="6.2.2" class="anchored" data-anchor-id="master.txt"><span class="header-section-number">6.2.2</span> master.txt</h3>
 <p>This file gives information about the recording as a whole. For example, there is some information about the timing of the different <code>streamN</code> files. Information about the recorder’s and participants’ avatars is also stored here. While its file suffix is <code>.txt</code>, it is in fact a JSON file. There are too many entries to be described here.</p>
 </section>
-<section id="audioothers.mp3" class="level3" data-number="2.2.3">
-<h3 data-number="2.2.3" class="anchored" data-anchor-id="audioothers.mp3"><span class="header-section-number">2.2.3</span> audioothers.mp3</h3>
+<section id="audioothers.mp3" class="level3" data-number="6.2.3">
+<h3 data-number="6.2.3" class="anchored" data-anchor-id="audioothers.mp3"><span class="header-section-number">6.2.3</span> audioothers.mp3</h3>
 <p>This file is an mp3 file recording the spoken audio. Presumably, based on its name, it only captures audio spoken by people who were not recording, but this has not been verified directly. This file only exists in streams in which someone was speaking. In order to create an audio track for the entire file, one needs to create a space for silence for the duration of each stream without this file.</p>
 </section>
-<section id="events.txt" class="level3" data-number="2.2.4">
-<h3 data-number="2.2.4" class="anchored" data-anchor-id="events.txt"><span class="header-section-number">2.2.4</span> events.txt</h3>
+<section id="events.txt" class="level3" data-number="6.2.4">
+<h3 data-number="6.2.4" class="anchored" data-anchor-id="events.txt"><span class="header-section-number">6.2.4</span> events.txt</h3>
 <p>This file mainly deals with changes that aren’t necessarily tied to an avatar. It is also a JSON file despite its suffix. Much of the activity in this file is related to IFX motion and usage. Other than hints given by the names in the keys, it is not understood what these values refer to specifically.</p>
 </section>
-<section id="stream.txt" class="level3" data-number="2.2.5">
-<h3 data-number="2.2.5" class="anchored" data-anchor-id="stream.txt"><span class="header-section-number">2.2.5</span> stream.txt</h3>
+<section id="stream.txt" class="level3" data-number="6.2.5">
+<h3 data-number="6.2.5" class="anchored" data-anchor-id="stream.txt"><span class="header-section-number">6.2.5</span> stream.txt</h3>
 <p>This file is what appears to be a custom format storing the values of several variables for several users over a number of frames (140, in 2021). Breaking down each level from largest granularity to smallest:</p>
 <p><strong>Users</strong> are demarcated by one or multiple leading <code>&gt;</code> characters. Each successive <code>&gt;</code> increments the user’s ID by one. For example, if users 1, 2, 5, and 6 are in the recording, then the <code>&gt;</code> characters will be distributed as follows: <code>&gt;</code> (1’s data) <code>&gt;</code> (2’s data) <code>&gt;&gt;&gt;</code> (5’s data) <code>&gt;</code> (6’s data). Note that at the point in the file with user data, the user ID is equal to the number of <code>&gt;</code>s that precede it in the entire file.</p>
 <p><strong>Variables</strong> are demarcated with a name and one <code>|</code> character at the beginning, and one <code>;</code> character at the end. Variable names follow the format <code>&lt;name&gt;&lt;type&gt;x</code>. Here, <code>&lt;type&gt;</code> can be <code>int</code> for integer, <code>flo</code> for float, or <code>v3</code> for a 3D vector type.</p>
@@ -276,10 +303,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>3D Vectors</strong> are demarcated in a special way relative to other data types. The three elements of the vector are separated with infix <code>&lt;</code> symbols, and changes propagate along dimension individually. For example, the value <code>|&lt;2.345&lt;|</code> means the y-value changed to 2.345, but the x- and z- values remained the same. Position and rotation vectors were written the same way; they only difference in the data itself is the variable name discussed above. Positions are interpreted as <code>X&lt;Y&lt;Z</code>, where axis conventions are used according to Unity (Y up, Z out, left-handed). Rotations are interpreted as <code>pitch&lt;yaw&lt;roll</code>, where angle conventions are also used according to Unity.</p>
 </section>
 </section>
-<section id="interpretations" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="interpretations"><span class="header-section-number">2.3</span> Interpretations</h2>
-<section id="root-head-hands-physical-virtual-and-visible-motion" class="level3" data-number="2.3.1">
-<h3 data-number="2.3.1" class="anchored" data-anchor-id="root-head-hands-physical-virtual-and-visible-motion"><span class="header-section-number">2.3.1</span> Root, Head, Hands / Physical, Virtual, and Visible Motion</h3>
+<section id="interpretations" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="interpretations"><span class="header-section-number">6.3</span> Interpretations</h2>
+<section id="root-head-hands-physical-virtual-and-visible-motion" class="level3" data-number="6.3.1">
+<h3 data-number="6.3.1" class="anchored" data-anchor-id="root-head-hands-physical-virtual-and-visible-motion"><span class="header-section-number">6.3.1</span> Root, Head, Hands / Physical, Virtual, and Visible Motion</h3>
 <p>ENGAGE separates out motion into four related channels. <code>AvaRoot</code> stands for Avatar Root, and it defines the coordinate transformation from the coordinate space for <code>Head</code>, <code>LeftHand</code>, and <code>RightHand</code> into the global coordinate system. What is particularly nice about ENGAGE’s data being in this format is that one can distinguish between <em>physical</em>, <em>virtual</em>, and <em>visible</em> motion.</p>
 <p>With virtual reality, what is <em>visible</em> to others in the virtual environment is a result of two kinds of motion: <em>physical</em> and <em>virtual</em> motion.</p>
 <ul>
@@ -302,8 +329,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>It should be noted this taxonomy is not complete. For example, it doesn’t allow for describing alternative methods of motion, such as redirected walking or visuo-haptic illusions. Nevertheless, it is a useful description of motion when working with ENGAGE.</p>
 </section>
-<section id="others" class="level3" data-number="2.3.2">
-<h3 data-number="2.3.2" class="anchored" data-anchor-id="others"><span class="header-section-number">2.3.2</span> others…</h3>
+<section id="others" class="level3" data-number="6.3.2">
+<h3 data-number="6.3.2" class="anchored" data-anchor-id="others"><span class="header-section-number">6.3.2</span> others…</h3>
 <p>[[more could be written here — a good threshold for smooth motion is 3.05 m/s]]</p>
 
 
@@ -346,18 +373,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -389,11 +405,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -403,8 +458,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -416,7 +480,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -460,6 +647,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -485,6 +673,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -546,17 +760,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./dddr.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title"><code>dddr</code>: Three-Dimensional Vector Operations in R</span></span>
+      <a href="./bids.html" class="pagination-link" aria-label="BIDS (Brain Imaging Data Structure)">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">BIDS (Brain Imaging Data Structure)</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./bids.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">BIDS (Brain Imaging Data Structure)</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./converting-myrec-bids.html" class="pagination-link" aria-label="Converting MYREC to BIDS">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Converting MYREC to BIDS</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
+
 
 
 
