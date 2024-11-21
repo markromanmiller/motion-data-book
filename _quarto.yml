@@ -15,6 +15,7 @@ book:
     - myrec.qmd
     - converting-myrec-bids.qmd
     - examples.qmd
+    - all-measures.qmd
     - references.qmd
 
 bibliography: references.bib

@@ -31,3 +31,11 @@ Data already in this format can be processed using [the `rbids` library](https:/
 `rbids` is not specific to motion data, though, so working with motion data is done with the `dddr` library (see @sec-dddr). `dddr` has quite a few functions an decent documentation, but still has bugs.
 
 Finally, built upon `rbids` is what is currently called [`synsyn` (for synchronizing on synchrony measurement)](https://github.com/markromanmiller/synsyn). This "package" is currently just two functions that aid in applying the same function to either each person's data ('summarize_motion') or pairs who attended the same session ('summarize_motion_pairs').
+
+<!--
+
+Notes about writing this book:
+
+Is the focuse more to be a reference, or a guide? A reference should have a high-level structure (math first, then practice). A guide has more of a narrative structure where everything overlaps. Soemthing like R4DS would be good, but that requires a "whole game" - what would that whole game be? r4ds can be referenced for tidying data as long as the tidying is basic. Should be (1) visualize data (viz of dddr), and calculating velocity (2) conventions and axes including rotations, (3) summarizing / synsyn with unexplained modeling, (4) multi-user analysis with unexplained modeling, (5) a reference for complicated things
+
+-->

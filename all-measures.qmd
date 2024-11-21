@@ -1,10 +1,12 @@
-# Key Measures, Calculations, Interpretations {#sec-key-measures}
+# All Measures {#sec-all-measures}
 
 ## Position
 
 ### Interpersonal Distance
 
 ## Orientation
+
+### Gaze for an object within a time
 
 ## Velocity
 
@@ -18,16 +20,6 @@ It's not yaw^2, pitch^2, roll^2
 
 it's ... `code` (should be a library function)
 
-## Acceleration
-
-## Angular Acceleration
-
-## Jerk
-
-## Angular Jerk
-
 (human body tends to minimize)
 
-## Filtering
-
-## Cross-Correlation
+## Yaw/Pitch/Roll Speed
