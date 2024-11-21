@@ -163,6 +163,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./all-measures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">All Measures</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
@@ -249,6 +255,13 @@ ul.task-list li input[type="checkbox"] {
 <p>Data already in this format can be processed using <a href="https://github.com/markromanmiller/rbids">the <code>rbids</code> library</a>. Documentation is largely not present, unfortunately.</p>
 <p><code>rbids</code> is not specific to motion data, though, so working with motion data is done with the <code>dddr</code> library (see <a href="dddr.html" class="quarto-xref"><span>3&nbsp; dddr: Three-Dimensional Vector Operations in R</span></a>). <code>dddr</code> has quite a few functions an decent documentation, but still has bugs.</p>
 <p>Finally, built upon <code>rbids</code> is what is currently called <a href="https://github.com/markromanmiller/synsyn"><code>synsyn</code> (for synchronizing on synchrony measurement)</a>. This “package” is currently just two functions that aid in applying the same function to either each person’s data (‘summarize_motion’) or pairs who attended the same session (‘summarize_motion_pairs’).</p>
+<!--
+
+Notes about writing this book:
+
+Is the focuse more to be a reference, or a guide? A reference should have a high-level structure (math first, then practice). A guide has more of a narrative structure where everything overlaps. Soemthing like R4DS would be good, but that requires a "whole game" - what would that whole game be? r4ds can be referenced for tidying data as long as the tidying is basic. Should be (1) visualize data (viz of dddr), and calculating velocity (2) conventions and axes including rotations, (3) summarizing / synsyn with unexplained modeling, (4) multi-user analysis with unexplained modeling, (5) a reference for complicated things
+
+-->
 
 
 </section>

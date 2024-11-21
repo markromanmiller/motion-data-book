@@ -64,7 +64,7 @@
     "href": "space-math.html#representing-rotations",
     "title": "2  Thinking about Space, Mathematically",
     "section": "2.3 Representing Rotations",
-    "text": "2.3 Representing Rotations\n\n2.3.1 Tait-Bryan (Euler) Angles\n\nCommonly used\nTechnically called tait-bryan angles in most situations\n\n\n\n\n2.3.2 Rotation Matrices\n\nnice when you don’t have a lot of them lined up by time\nbut they are pretty decent to train on (find that 6DOF paper)\n\n\n\n2.3.3 Quaternions\n(3b1b video) half-angle axis",
+    "text": "2.3 Representing Rotations\n\n2.3.1 Tait-Bryan (Euler) Angles\n\nCommonly used\nTechnically called tait-bryan angles in most situations\n\n\n\n\n2.3.2 Rotation Matrices\n\nnice when you don’t have a lot of them lined up by time\nbut they are pretty decent to train on (find that 6DOF paper)\n\n\n\n2.3.3 Quaternions\n(3b1b video) half-angle axis\nHandedness is the same as the positional axis handedness.\n\nI was confused earlier. For some reason, I had thought that the handedness of the quaternion’s axis-angle representation could be different from the underlying positional axes, but that’s not the case. As long as the quaternion multiplication is consistent, it’s the same handedness as the axes themselves. The quaternion’s X-value specifies a rotation from Y to Z always, it’s just the positional axes that determines whether that’s a left or right rotation.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Thinking about Space, Mathematically</span>"
     ]
@@ -124,7 +124,47 @@
     "href": "key-measures.html",
     "title": "4  Key Measures, Calculations, Interpretations",
     "section": "",
-    "text": "4.1 Velocity",
+    "text": "4.1 Position",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Key Measures, Calculations, Interpretations</span>"
+    ]
+  },
+  {
+    "objectID": "key-measures.html#position",
+    "href": "key-measures.html#position",
+    "title": "4  Key Measures, Calculations, Interpretations",
+    "section": "",
+    "text": "4.1.1 Interpersonal Distance",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Key Measures, Calculations, Interpretations</span>"
+    ]
+  },
+  {
+    "objectID": "key-measures.html#orientation",
+    "href": "key-measures.html#orientation",
+    "title": "4  Key Measures, Calculations, Interpretations",
+    "section": "4.2 Orientation",
+    "text": "4.2 Orientation",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Key Measures, Calculations, Interpretations</span>"
+    ]
+  },
+  {
+    "objectID": "key-measures.html#velocity",
+    "href": "key-measures.html#velocity",
+    "title": "4  Key Measures, Calculations, Interpretations",
+    "section": "4.3 Velocity",
+    "text": "4.3 Velocity",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Key Measures, Calculations, Interpretations</span>"
+    ]
+  },
+  {
+    "objectID": "key-measures.html#angular-velocity",
+    "href": "key-measures.html#angular-velocity",
+    "title": "4  Key Measures, Calculations, Interpretations",
+    "section": "4.4 Angular Velocity",
+    "text": "4.4 Angular Velocity",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Key Measures, Calculations, Interpretations</span>"
     ]
@@ -133,8 +173,78 @@
     "objectID": "key-measures.html#speed",
     "href": "key-measures.html#speed",
     "title": "4  Key Measures, Calculations, Interpretations",
-    "section": "4.2 Speed",
-    "text": "4.2 Speed\n\n4.2.1 Positional Speed\n\n\n4.2.2 Rotational Speed\nIt’s not yaw^2, pitch^2, roll^2\nit’s … code (should be a library function)",
+    "section": "4.5 Speed",
+    "text": "4.5 Speed",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Key Measures, Calculations, Interpretations</span>"
+    ]
+  },
+  {
+    "objectID": "key-measures.html#angular-speed",
+    "href": "key-measures.html#angular-speed",
+    "title": "4  Key Measures, Calculations, Interpretations",
+    "section": "4.6 Angular Speed",
+    "text": "4.6 Angular Speed\nIt’s not yaw^2, pitch^2, roll^2\nit’s … code (should be a library function)",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Key Measures, Calculations, Interpretations</span>"
+    ]
+  },
+  {
+    "objectID": "key-measures.html#acceleration",
+    "href": "key-measures.html#acceleration",
+    "title": "4  Key Measures, Calculations, Interpretations",
+    "section": "4.7 Acceleration",
+    "text": "4.7 Acceleration",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Key Measures, Calculations, Interpretations</span>"
+    ]
+  },
+  {
+    "objectID": "key-measures.html#angular-acceleration",
+    "href": "key-measures.html#angular-acceleration",
+    "title": "4  Key Measures, Calculations, Interpretations",
+    "section": "4.8 Angular Acceleration",
+    "text": "4.8 Angular Acceleration",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Key Measures, Calculations, Interpretations</span>"
+    ]
+  },
+  {
+    "objectID": "key-measures.html#jerk",
+    "href": "key-measures.html#jerk",
+    "title": "4  Key Measures, Calculations, Interpretations",
+    "section": "4.9 Jerk",
+    "text": "4.9 Jerk",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Key Measures, Calculations, Interpretations</span>"
+    ]
+  },
+  {
+    "objectID": "key-measures.html#angular-jerk",
+    "href": "key-measures.html#angular-jerk",
+    "title": "4  Key Measures, Calculations, Interpretations",
+    "section": "4.10 Angular Jerk",
+    "text": "4.10 Angular Jerk\n(human body tends to minimize)",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Key Measures, Calculations, Interpretations</span>"
+    ]
+  },
+  {
+    "objectID": "key-measures.html#filtering",
+    "href": "key-measures.html#filtering",
+    "title": "4  Key Measures, Calculations, Interpretations",
+    "section": "4.11 Filtering",
+    "text": "4.11 Filtering",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Key Measures, Calculations, Interpretations</span>"
+    ]
+  },
+  {
+    "objectID": "key-measures.html#cross-correlation",
+    "href": "key-measures.html#cross-correlation",
+    "title": "4  Key Measures, Calculations, Interpretations",
+    "section": "4.12 Cross-Correlation",
+    "text": "4.12 Cross-Correlation",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Key Measures, Calculations, Interpretations</span>"
     ]
@@ -267,6 +377,86 @@
     "text": "8.6 Mutual gaze\n# Load libraries\nlibrary(tidyverse)\ndevtools::load_all(\"~/thesis/multiverse/\")\ndevtools::load_all(\"~/work/dddr\")\ndevtools::load_all(\"~/thesis/rbids/\")\ndevtools::load_all(\"~/thesis/synsyn/\")\n\n# load BIDS dataset\nbd &lt;- bids(\"/media/mark/mrm-thesis-files/virtual-summer/bids-standard/vhil-2021-summer/\")\n\n# let dddr know that we're working with Unity's axis and angles conventions.\nset_dddr_semantics(axes = semantics_axes_unity, angles = semantics_angles_unity)\n\n# Take the file, read it, and get virtual position of root, and physical position of head, and find visible position.\npreprocess &lt;- function(file_path, session_id, participant_id, ...) {\n  # exactly one file per person\n  read_tsv(file_path, col_types = list(Timestamp = col_time(\"%H:%M:%OS\")), progress = F) %&gt;%\n    bundle(\n      Root = \"Root_Pos{v}\",\n      RootRot = \"Root_Rot{ed}\",\n      RawHead = \"Head_Pos{v}\",\n      RawHeadRot = \"Head_Rot{ed}\"\n    ) %&gt;%\n    select(Timestamp, Root, RootRot, RawHead, RawHeadRot) %&gt;%\n    mutate(session_id = session_id) %&gt;%\n    mutate(\n      # convert to visible motion\n      VisibleRawHead = Root + rotate(RawHead, RootRot),\n      VisibleRawHeadRot = rotate(RawHeadRot, RootRot, as = \"orientation\")\n    )\n}\n\n# take two participant's placement, and calculate whether they're looking at each other or if X is looking at Y.\nrelate_intrinsic_yp &lt;- function(px_data, py_data) {\n  joined &lt;- inner_join(px_data, py_data, by = c(\"Timestamp\"))\n\n  if (nrow(joined) == 0) {\n    return (NULL)\n  }\n\n  joined %&gt;%\n    #slice_sample(prop = 0.01) %&gt;%\n    mutate(\n      y_from_x = angle_between(VisibleRawHead.y - VisibleRawHead.x, vector3(0, 0, 1) %&gt;% rotate(VisibleRawHeadRot.x)) &lt; 15/180 * pi,\n      x_from_y = angle_between(VisibleRawHead.x - VisibleRawHead.y, vector3(0, 0, 1) %&gt;% rotate(VisibleRawHeadRot.y)) &lt; 15/180 * pi,\n      mutual = y_from_x & x_from_y\n    ) %&gt;%\n    select(\n      Timestamp, y_from_x, mutual\n    )\n}\n\n# This function takes several pairs' worth of data and collapses them to one timeframe for each person.\ngroup_summary_align_and_boolean &lt;- function(list_df) {\n  list_df %&gt;%\n    bind_rows() %&gt;%\n    unnest(result) %&gt;%\n    group_by(participant_id_x, Timestamp) %&gt;%\n    summarize(\n      y_from_x = any(y_from_x),\n      mutual = any(mutual),\n      .groups = \"drop_last\"\n    ) %&gt;%\n    summarize(\n      social_attention = mean(y_from_x, na.rm = T),\n      mutual_gaze = mean(mutual, na.rm = T),\n      total_frames = n(),\n      na_social_attention_frames = sum(is.na(y_from_x)),\n      na_mutual_gaze_frames = sum(is.na(mutual)),\n      .groups = \"drop\"\n    ) %&gt;%\n    group_nest(.key = \"result\")\n}\n\n# Now that the functions are defined, run them on the BIDS data\nresults &lt;- bd %&gt;%\n  bids_motion() %&gt;%\n  #filter(session_id %&gt;% endsWith(\"section1\")) %&gt;%\n  #filter(session_id == \"week7section8\") %&gt;%\n  summarize_motion_pairs(\n    relate = relate_intrinsic_yp,\n    preprocess = preprocess,\n    group_summary = group_summary_align_and_boolean,\n    ordered = T,\n    #head = 5,\n    progress = T\n  ) %&gt;%\n  unnest(result)\n\n# Output the file with a timestamp to make it unique.\noutput_file &lt;- paste0(\"results_\", strftime(Sys.time(), format = \"%y_%m_%d_%H%M%S\"), \".csv\")\ncat(\"Output file at\", output_file)\n\nresults %&gt;% write_csv(output_file)",
     "crumbs": [
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Examples of Social Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "all-measures.html",
+    "href": "all-measures.html",
+    "title": "9  All Measures",
+    "section": "",
+    "text": "9.1 Position",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>All Measures</span>"
+    ]
+  },
+  {
+    "objectID": "all-measures.html#position",
+    "href": "all-measures.html#position",
+    "title": "9  All Measures",
+    "section": "",
+    "text": "9.1.1 Interpersonal Distance",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>All Measures</span>"
+    ]
+  },
+  {
+    "objectID": "all-measures.html#orientation",
+    "href": "all-measures.html#orientation",
+    "title": "9  All Measures",
+    "section": "9.2 Orientation",
+    "text": "9.2 Orientation\n\n9.2.1 Gaze for an object within a time",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>All Measures</span>"
+    ]
+  },
+  {
+    "objectID": "all-measures.html#velocity",
+    "href": "all-measures.html#velocity",
+    "title": "9  All Measures",
+    "section": "9.3 Velocity",
+    "text": "9.3 Velocity",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>All Measures</span>"
+    ]
+  },
+  {
+    "objectID": "all-measures.html#angular-velocity",
+    "href": "all-measures.html#angular-velocity",
+    "title": "9  All Measures",
+    "section": "9.4 Angular Velocity",
+    "text": "9.4 Angular Velocity",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>All Measures</span>"
+    ]
+  },
+  {
+    "objectID": "all-measures.html#speed",
+    "href": "all-measures.html#speed",
+    "title": "9  All Measures",
+    "section": "9.5 Speed",
+    "text": "9.5 Speed",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>All Measures</span>"
+    ]
+  },
+  {
+    "objectID": "all-measures.html#angular-speed",
+    "href": "all-measures.html#angular-speed",
+    "title": "9  All Measures",
+    "section": "9.6 Angular Speed",
+    "text": "9.6 Angular Speed\nIt’s not yaw^2, pitch^2, roll^2\nit’s … code (should be a library function)\n(human body tends to minimize)",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>All Measures</span>"
+    ]
+  },
+  {
+    "objectID": "all-measures.html#yawpitchroll-speed",
+    "href": "all-measures.html#yawpitchroll-speed",
+    "title": "9  All Measures",
+    "section": "9.7 Yaw/Pitch/Roll Speed",
+    "text": "9.7 Yaw/Pitch/Roll Speed",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>All Measures</span>"
     ]
   }
 ]

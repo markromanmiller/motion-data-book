@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; Thinking about Space, Mathematically – motion-data-book</title>
+<title>9&nbsp; All Measures – motion-data-book</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./dddr.html" rel="next">
-<link href="./space-science.html" rel="prev">
+<link href="./references.html" rel="next">
+<link href="./examples.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -81,7 +81,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./space-math.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Thinking about Space, Mathematically</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./all-measures.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">All Measures</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -120,7 +120,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./space-math.html" class="sidebar-item-text sidebar-link active">
+  <a href="./space-math.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Thinking about Space, Mathematically</span></span></a>
   </div>
 </li>
@@ -162,7 +162,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./all-measures.html" class="sidebar-item-text sidebar-link">
+  <a href="./all-measures.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">All Measures</span></span></a>
   </div>
 </li>
@@ -182,14 +182,19 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#terminology" id="toc-terminology" class="nav-link active" data-scroll-target="#terminology"><span class="header-section-number">2.1</span> Terminology</a></li>
-  <li><a href="#representing-position" id="toc-representing-position" class="nav-link" data-scroll-target="#representing-position"><span class="header-section-number">2.2</span> Representing Position</a></li>
-  <li><a href="#representing-rotations" id="toc-representing-rotations" class="nav-link" data-scroll-target="#representing-rotations"><span class="header-section-number">2.3</span> Representing Rotations</a>
+  <li><a href="#position" id="toc-position" class="nav-link active" data-scroll-target="#position"><span class="header-section-number">9.1</span> Position</a>
   <ul class="collapse">
-  <li><a href="#tait-bryan-euler-angles" id="toc-tait-bryan-euler-angles" class="nav-link" data-scroll-target="#tait-bryan-euler-angles"><span class="header-section-number">2.3.1</span> Tait-Bryan (Euler) Angles</a></li>
-  <li><a href="#rotation-matrices" id="toc-rotation-matrices" class="nav-link" data-scroll-target="#rotation-matrices"><span class="header-section-number">2.3.2</span> Rotation Matrices</a></li>
-  <li><a href="#quaternions" id="toc-quaternions" class="nav-link" data-scroll-target="#quaternions"><span class="header-section-number">2.3.3</span> Quaternions</a></li>
+  <li><a href="#interpersonal-distance" id="toc-interpersonal-distance" class="nav-link" data-scroll-target="#interpersonal-distance"><span class="header-section-number">9.1.1</span> Interpersonal Distance</a></li>
   </ul></li>
+  <li><a href="#orientation" id="toc-orientation" class="nav-link" data-scroll-target="#orientation"><span class="header-section-number">9.2</span> Orientation</a>
+  <ul class="collapse">
+  <li><a href="#gaze-for-an-object-within-a-time" id="toc-gaze-for-an-object-within-a-time" class="nav-link" data-scroll-target="#gaze-for-an-object-within-a-time"><span class="header-section-number">9.2.1</span> Gaze for an object within a time</a></li>
+  </ul></li>
+  <li><a href="#velocity" id="toc-velocity" class="nav-link" data-scroll-target="#velocity"><span class="header-section-number">9.3</span> Velocity</a></li>
+  <li><a href="#angular-velocity" id="toc-angular-velocity" class="nav-link" data-scroll-target="#angular-velocity"><span class="header-section-number">9.4</span> Angular Velocity</a></li>
+  <li><a href="#speed" id="toc-speed" class="nav-link" data-scroll-target="#speed"><span class="header-section-number">9.5</span> Speed</a></li>
+  <li><a href="#angular-speed" id="toc-angular-speed" class="nav-link" data-scroll-target="#angular-speed"><span class="header-section-number">9.6</span> Angular Speed</a></li>
+  <li><a href="#yawpitchroll-speed" id="toc-yawpitchroll-speed" class="nav-link" data-scroll-target="#yawpitchroll-speed"><span class="header-section-number">9.7</span> Yaw/Pitch/Roll Speed</a></li>
   </ul>
 </nav>
     </div>
@@ -198,7 +203,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-space-math" class="quarto-section-identifier"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Thinking about Space, Mathematically</span></span></h1>
+<h1 class="title"><span id="sec-all-measures" class="quarto-section-identifier"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">All Measures</span></span></h1>
 </div>
 
 
@@ -215,55 +220,37 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="terminology" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="terminology"><span class="header-section-number">2.1</span> Terminology</h2>
-<ul>
-<li>acceleration</li>
-<li>velocity</li>
-<li>speed</li>
-<li>jerk
-<ul>
-<li>snap, crackle, pop, etc.</li>
-</ul></li>
-<li>orientation (loops back)</li>
-<li>angular velocity (direction and magnitude)</li>
-<li>angular acceleration (direction and magnitude)</li>
-</ul>
+<section id="position" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="position"><span class="header-section-number">9.1</span> Position</h2>
+<section id="interpersonal-distance" class="level3" data-number="9.1.1">
+<h3 data-number="9.1.1" class="anchored" data-anchor-id="interpersonal-distance"><span class="header-section-number">9.1.1</span> Interpersonal Distance</h3>
 </section>
-<section id="representing-position" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="representing-position"><span class="header-section-number">2.2</span> Representing Position</h2>
-<ul>
-<li>3d Vector. Pretty straightforward.</li>
-<li>Know your coordinate basis.</li>
-</ul>
 </section>
-<section id="representing-rotations" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="representing-rotations"><span class="header-section-number">2.3</span> Representing Rotations</h2>
-<section id="tait-bryan-euler-angles" class="level3" data-number="2.3.1">
-<h3 data-number="2.3.1" class="anchored" data-anchor-id="tait-bryan-euler-angles"><span class="header-section-number">2.3.1</span> Tait-Bryan (Euler) Angles</h3>
-<ul>
-<li>Commonly used</li>
-<li>Technically called tait-bryan angles in most situations</li>
-<li></li>
-</ul>
+<section id="orientation" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="orientation"><span class="header-section-number">9.2</span> Orientation</h2>
+<section id="gaze-for-an-object-within-a-time" class="level3" data-number="9.2.1">
+<h3 data-number="9.2.1" class="anchored" data-anchor-id="gaze-for-an-object-within-a-time"><span class="header-section-number">9.2.1</span> Gaze for an object within a time</h3>
 </section>
-<section id="rotation-matrices" class="level3" data-number="2.3.2">
-<h3 data-number="2.3.2" class="anchored" data-anchor-id="rotation-matrices"><span class="header-section-number">2.3.2</span> Rotation Matrices</h3>
-<ul>
-<li>nice when you don’t have a lot of them lined up by time</li>
-<li>but they are pretty decent to train on (find that 6DOF paper)</li>
-</ul>
 </section>
-<section id="quaternions" class="level3" data-number="2.3.3">
-<h3 data-number="2.3.3" class="anchored" data-anchor-id="quaternions"><span class="header-section-number">2.3.3</span> Quaternions</h3>
-<p>(3b1b video) half-angle axis</p>
-<p>Handedness is the same as the positional axis handedness.</p>
-<blockquote class="blockquote">
-<p>I was confused earlier. For some reason, I had thought that the handedness of the quaternion’s axis-angle representation could be different from the underlying positional axes, but that’s not the case. As long as the quaternion multiplication is consistent, it’s the same handedness as the axes themselves. The quaternion’s X-value specifies a rotation from Y to Z always, it’s just the positional axes that determines whether that’s a left or right rotation.</p>
-</blockquote>
+<section id="velocity" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="velocity"><span class="header-section-number">9.3</span> Velocity</h2>
+</section>
+<section id="angular-velocity" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="angular-velocity"><span class="header-section-number">9.4</span> Angular Velocity</h2>
+</section>
+<section id="speed" class="level2" data-number="9.5">
+<h2 data-number="9.5" class="anchored" data-anchor-id="speed"><span class="header-section-number">9.5</span> Speed</h2>
+</section>
+<section id="angular-speed" class="level2" data-number="9.6">
+<h2 data-number="9.6" class="anchored" data-anchor-id="angular-speed"><span class="header-section-number">9.6</span> Angular Speed</h2>
+<p>It’s not yaw^2, pitch^2, roll^2</p>
+<p>it’s … <code>code</code> (should be a library function)</p>
+<p>(human body tends to minimize)</p>
+</section>
+<section id="yawpitchroll-speed" class="level2" data-number="9.7">
+<h2 data-number="9.7" class="anchored" data-anchor-id="yawpitchroll-speed"><span class="header-section-number">9.7</span> Yaw/Pitch/Roll Speed</h2>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -689,13 +676,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./space-science.html" class="pagination-link" aria-label="Thinking about Space, Scientifically">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Thinking about Space, Scientifically</span></span>
+      <a href="./examples.html" class="pagination-link" aria-label="Examples of Social Analysis">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Examples of Social Analysis</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./dddr.html" class="pagination-link" aria-label="`dddr`: Three-Dimensional Vector Operations in R">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title"><code>dddr</code>: Three-Dimensional Vector Operations in R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./references.html" class="pagination-link" aria-label="References">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
