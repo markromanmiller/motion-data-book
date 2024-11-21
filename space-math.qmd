@@ -18,11 +18,19 @@
 
 ## Representing Rotations
 
+Rotations are commonly represented in one of three ways: (1) euler angles, (2) rotation matrices, and (3) quaternions.
+
+
 ### Tait-Bryan (Euler) Angles
 
--   Commonly used
--   Technically called tait-bryan angles in most situations
--   
+- Commonly used
+- Technically tait-bryan angles, usually, but often called euler angles (footnote what euler angles are)
+- Live sliders example of euler angles would be cool here
+- Order of angles matters
+- Intrinsic vs extrinsic angles
+  - intrinsic is like a robot - the rotators work
+  - Extrinsic angles
+- is 30 positive left-handed or right-handed
 
 ### Rotation Matrices
 
